@@ -1,0 +1,21 @@
+{
+  "name": "generator-react-minimal",
+  "version": "0.0.0",
+  "description": "My minimal React dev stuff",
+  "repository": "rossipedia/generator-react-minimal",
+  "main": "index.js",
+  "files": [
+    "app"
+  ],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Bryan Ross <bryan@rossipedia.com>",
+  "license": "MIT",
+  "keywords": [
+    "yeoman-generator"
+  ],
+  "dependencies": {
+    "yeoman-generator": "^0.22.2"
+  }
+}
