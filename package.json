@@ -1,7 +1,7 @@
 {
   "name": "generator-react-minimal",
-  "version": "0.0.0",
-  "description": "My minimal React dev stuff",
+  "version": "0.1.0",
+  "description": "A minimal react/redux/webpack setup.",
   "repository": "rossipedia/generator-react-minimal",
   "main": "index.js",
   "files": [
