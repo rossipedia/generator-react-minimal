@@ -1,5 +1,5 @@
 # generator-react-minimal
->My minimal React dev stuff
+> A minimal react/webpack/redux setup
 
 ## Installation
 Install the generator globally:
