@@ -38,14 +38,14 @@ module.exports = generators.Base.extend({
           store   : true
         },
         {
-          type    : 'expand',
+          type    : 'list',
           message : 'Run npm install? ',
           name    : 'runNpmInstall',
           store   : true,
-          default : false,
+          default : "No",
           choices : [
-            { key: 'y' , name: 'Yes' , value: true  },
-            { key: 'n' , name: 'No'  , value: false }
+            "Yes",
+            "No"
           ]
         }
       ], 
@@ -53,7 +53,7 @@ module.exports = generators.Base.extend({
         this.appname = this.helper.cleanAppname(answers.appname);
         this.authorName = answers.authorName;
         this.authorEmail = answers.authorEmail;
-        this.runNpmInstall = answers.npmInstall;
+        this.runNpmInstall = answers.runNpmInstall == "Yes";
         done();
       });
     }
