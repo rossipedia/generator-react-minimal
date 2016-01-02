@@ -9,7 +9,7 @@ import ReactDOM from 'react-dom';
  */
 import { createStore, applyMiddleware, combineReducers } from 'redux';
 import { Provider, connect } from 'react-redux';
-import reduxLogger from 'redux-logger';
+import createLogger from 'redux-logger';
 import thunkMiddleware from 'redux-thunk';
 
 /**
@@ -20,33 +20,33 @@ import { setMessage } from './actions';
 
 const createStoreWithMiddleware = applyMiddleware(
   thunkMiddleware,
-  reduxLogger
+  createLogger()
 )(createStore);
 
-const store = createStoreWithMiddleware(message);
+const reducer = combineReducers({
+  message
+});
+
+const store = createStoreWithMiddleware(reducer);
 
 store.dispatch(setMessage('Hello, World!'));
 
-const Message = ({message}) => (
+let Message = ({ message }) => (
   <div>
-    <p><strong>Message:</strong>≤</p>
+    <p><strong>Message:</strong></p>
     <p>{message}</p>
   </div>
 );
 
-class App extends Component {
-  render() {
-    return (
-      <Provider store={this.props.store}>
-        <Message />
-      </Provider>
-    );
-  }
-}
+let App = ({store}) => (
+  <Provider store={store}>
+    <Message />
+  </Provider>
+);
 
-App = connect(state => state)(App);
+Message = connect(state => state)(Message);
 
 ReactDOM.render(
-  <App store={store} />,
+  <App store={store} />, 
   document.getElementById('app')
 );

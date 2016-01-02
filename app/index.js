@@ -9,7 +9,6 @@ module.exports = generators.Base.extend({
   },
 
   initializing: function() {
-    this.author = {};
     this.appname = this.helper.cleanAppname(this.appname);
   },
 
@@ -73,7 +72,7 @@ module.exports = generators.Base.extend({
         name: this.appname,
         version: "1.0.0",
         scripts: {
-          start: "node_modules/.bin/babel-node server.js",
+          start: "node_modules/.bin/webpack-dev-server --port 3000 --content-base public/",
           test: "echo \"Error: no test specified\" && exit 1"
         },
         keywords: [
@@ -121,11 +120,11 @@ module.exports = generators.Base.extend({
      );
     },
 
-    serverFiles: function () {
-      ['server.js', 'views/index.jade'].forEach(
+    publicFiles: function() {
+      ['index.html'].forEach(
         f => {
-          const src = this.templatePath(f);
-          const dst = this.destinationPath(f);
+          const src = this.templatePath(`public/${f}`);
+          const dst = this.destinationPath(`public/${f}`);
           this.fs.copy(src, dst);
         }
       );
@@ -144,6 +143,7 @@ module.exports = generators.Base.extend({
       this.npmInstall([
         'react',
         'react-dom',
+        'react-dev-server',
         'webpack',
         'babel-core',
         'babel-cli',
@@ -161,9 +161,7 @@ module.exports = generators.Base.extend({
         'redux',
         'react-redux',
         'redux-logger',
-        'redux-thunk',
-        'express',
-        'jade'
+        'redux-thunk'
       ], { 
         'saveDev': true 
       });
