@@ -92,7 +92,8 @@ module.exports = generators.Base.extend({
 
     babelRc: function () {
       const opts = {
-        presets: [ 'es2015', 'react', 'stage-0' ]
+        presets: [ 'es2015', 'react', 'stage-0' ],
+        plugins: [ 'transform-decorators-legacy' ]
       };
 
       this.fs.writeJSON(
@@ -111,7 +112,7 @@ module.exports = generators.Base.extend({
     },
 
     srcFiles: function () {
-     ['app.js', 'reducers.js', 'actions.js'].forEach(
+     ['app.js'].forEach(
        f => {
          const src = this.templatePath(`src/${f}`);
          const dst = this.destinationPath(`src/${f}`);
@@ -141,27 +142,20 @@ module.exports = generators.Base.extend({
         return;
 
       this.npmInstall([
-        'react',
-        'react-dom',
-        'react-dev-server',
-        'webpack',
         'babel-core',
-        'babel-cli',
+        'babel-loader',
+        'babel-plugin-transform-decorators-legacy',
         'babel-preset-es2015',
         'babel-preset-react',
         'babel-preset-stage-0',
-        'babel-loader',
-        'css-loader',
-        'style-loader',
-        'less-loader',
-        'less',
-        'less-plugin-clean-css',
-        'imports-loader',
-        'exports-loader',
-        'redux',
+        'react',
+        'react-dom',
         'react-redux',
+        'redux',
         'redux-logger',
-        'redux-thunk'
+        'redux-thunk',
+        'webpack',
+        'webpack-dev-server'
       ], { 
         'saveDev': true 
       });

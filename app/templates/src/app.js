@@ -1,52 +1,61 @@
-/**
- * React
- */
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-
-/**
- * Redux
- */
 import { createStore, applyMiddleware, combineReducers } from 'redux';
 import { Provider, connect } from 'react-redux';
 import createLogger from 'redux-logger';
 import thunkMiddleware from 'redux-thunk';
 
-/**
- * reducers / actions
- */
-import { message } from './reducers';
-import { setMessage } from './actions';
+function reducer(state = 0, action) {
+  switch (action.type) {
+    case 'inc': 
+      return state + 1;
 
-const createStoreWithMiddleware = applyMiddleware(
-  thunkMiddleware,
-  createLogger()
-)(createStore);
+    case 'dec': 
+      return state - 1;
 
-const reducer = combineReducers({
-  message
+    default: 
+      return state;
+  }
+}
+
+const mapState = (state) => ({
+  count: state
 });
 
-const store = createStoreWithMiddleware(reducer);
+const mapDispatch = (dispatch) => ({
+  inc: () => dispatch({type: 'inc'}),
+  dec: () => dispatch({type: 'dec'})
+});
 
-store.dispatch(setMessage('Hello, World!'));
+@connect(mapState, mapDispatch)
+class Counter extends Component {
 
-let Message = ({ message }) => (
-  <div>
-    <p><strong>Message:</strong></p>
-    <p>{message}</p>
-  </div>
+  render() {
+    const { count, inc, dec } = this.props;
+
+    return (
+      <div>
+        <div>Count: {count}</div>
+        <button onClick={inc}>+</button>
+        <button onClick={dec}>-</button>
+      </div>
+    );
+  }
+}
+
+const store = createStore(
+  reducer,
+  applyMiddleware(
+    thunkMiddleware,
+    createLogger()
+  )
 );
 
-let App = ({store}) => (
-  <Provider store={store}>
-    <Message />
-  </Provider>
-);
-
-Message = connect(state => state)(Message);
 
 ReactDOM.render(
-  <App store={store} />, 
+  <Provider store={store}>
+    <Counter />
+  </Provider>
+  , 
   document.getElementById('app')
 );
