@@ -16,7 +16,7 @@ module.exports = generators.Base.extend({
     userInput: function() {
       var done = this.async();
 
-      this.prompt([ 
+      this.prompt([
         {
           type    : 'input',
           name    : 'appname',
@@ -48,7 +48,7 @@ module.exports = generators.Base.extend({
             "No"
           ]
         }
-      ], 
+      ],
       answers => {
         this.appname = this.helper.cleanAppname(answers.appname);
         this.authorName = answers.authorName;
@@ -72,7 +72,8 @@ module.exports = generators.Base.extend({
         name: this.appname,
         version: "1.0.0",
         scripts: {
-          start: "node_modules/.bin/webpack-dev-server --port 3000 --content-base public/",
+          start: "node_modules/.bin/webpack-dev-server --inline --hot --port 3000 --content-base public/",
+          build: "node_modules/.bin/cross-env NODE_ENV=production node_modules/.bin/webpack",
           test: "echo \"Error: no test specified\" && exit 1"
         },
         keywords: [
@@ -97,9 +98,9 @@ module.exports = generators.Base.extend({
       };
 
       this.fs.writeJSON(
-        this.destinationPath('.babelrc'), 
-        opts, 
-        undefined, 
+        this.destinationPath('.babelrc'),
+        opts,
+        undefined,
         2);
     },
 
@@ -148,6 +149,7 @@ module.exports = generators.Base.extend({
         'babel-preset-es2015',
         'babel-preset-react',
         'babel-preset-stage-0',
+        'cross-env',
         'react',
         'react-dom',
         'react-redux',
@@ -156,8 +158,8 @@ module.exports = generators.Base.extend({
         'redux-thunk',
         'webpack',
         'webpack-dev-server'
-      ], { 
-        'saveDev': true 
+      ], {
+        'saveDev': true
       });
     }
   },

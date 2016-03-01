@@ -7,13 +7,13 @@ import thunkMiddleware from 'redux-thunk';
 
 function reducer(state = 0, action) {
   switch (action.type) {
-    case 'inc': 
+    case 'inc':
       return state + 1;
 
-    case 'dec': 
+    case 'dec':
       return state - 1;
 
-    default: 
+    default:
       return state;
   }
 }
@@ -56,6 +56,6 @@ ReactDOM.render(
   <Provider store={store}>
     <Counter />
   </Provider>
-  , 
+  ,
   document.getElementById('app')
 );
