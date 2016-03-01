@@ -1,6 +1,6 @@
 {
   "name": "generator-react-minimal",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "A minimal react/redux/webpack setup.",
   "repository": "rossipedia/generator-react-minimal",
   "main": "index.js",
